@@ -51,6 +51,6 @@ export class AnamneseService {
 
   pesquisarPorIdCliente(idCliente: number): Observable<any> {
     // Ajuste o nome do parâmetro conforme seu backend
-    return this._http.get<any>(`${this.apiUrl}/search?idCliente=${idCliente}`);
+    return this._http.get<any>(`${this.apiUrl}/search?patientId=${idCliente}`);
   }
 }
