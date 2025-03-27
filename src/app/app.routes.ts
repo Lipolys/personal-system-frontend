@@ -3,10 +3,13 @@ import { PacienteListComponent } from './features/paciente/paciente-list/pacient
 import {LoginFormComponent} from './features/login/login-form/login-form.component';
 import {AppComponent} from './app.component';
 import {SecurityGuard} from './authentication/security/security.guard';
+import {RelatoriosComponent} from './features/relatorios/relatorios.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'home', component: AppComponent},
   {path: 'login', component: LoginFormComponent},
   {path: 'pacienteList', component: PacienteListComponent, canActivate: [SecurityGuard], data: {security: {roles: ['ROLE_PATIENT_LISTALL']}}},
+  {path: 'relatorios', component: RelatoriosComponent, canActivate: [SecurityGuard], data: {security: {roles: ['ROLE_PATIENT_LISTALL']}}},
+
 ];
