@@ -1,0 +1,35 @@
+.div-list {
+  margin-top: 20px;
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+.section-super-table {
+  display: flex;
+  justify-content: space-between;
+}
+
+.div-search{
+  display: flex;
+  margin-bottom: 20px;
+  gap: 25px;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.form-search, .table-section {
+  box-shadow: var(--box-shadow-default);
+}
+
+.mat-mdc-header-row {
+  background-color: #e2e2e2;
+  border: 0;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.mat-mdc-cell {
+  border-color: #e2e2e2;
+}
+
+

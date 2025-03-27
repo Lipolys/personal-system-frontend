@@ -1,0 +1,29 @@
+.form-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 16px;
+  margin: 20px;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row{
+  display: flex;
+  gap: 16px;
+}
+
+mat-form-field {
+  flex: 1;
+  width: 25vw;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}

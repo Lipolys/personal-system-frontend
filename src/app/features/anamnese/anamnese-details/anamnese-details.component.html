@@ -1,0 +1,25 @@
+<h1>Detalhes do Paciente</h1>
+<div class="details-container">
+  <p><strong>Nome:</strong> {{ data.name }}</p>
+  <div class="line"></div>
+  <p><strong>CPF:</strong> {{ data.cpf }}</p>
+  <div class="line"></div>
+  <p><strong>Email:</strong> {{ data.email }}</p>
+  <div class="line"></div>
+  <p><strong>Data de Nascimento:</strong> {{ data.birthDate | date: 'dd/MM/yyyy' }}</p>
+  <div class="line"></div>
+  <p><strong>Sexo:</strong> {{ data.gender }}</p>
+  <div class="line"></div>
+  <p><strong>Estado Civil:</strong> {{ data.maritalStatus }}</p>
+  <div class="line"></div>
+  <p><strong>Profissão:</strong> {{ data.profession }}</p>
+  <div class="line"></div>
+  <p><strong>Telefone:</strong> {{ data.phoneNumber }}</p>
+  <div class="line"></div>
+  <p><strong>Endereço:</strong> {{ data.address.street }}, {{ data.address.number }}, {{ data.address.neighborhood }}, {{ data.address.city }} - {{ data.address.state }}</p>
+  <div class="line"></div>
+  <p><strong>Plano de Saúde:</strong> {{ data.healthPlan || 'N/A' }}</p>
+  <div class="line"></div>
+  <p><strong>Ativo:</strong> {{ data.enabled ? 'Sim' : 'Não' }}</p>
+</div>
+<button mat-button mat-dialog-close>Fechar</button>

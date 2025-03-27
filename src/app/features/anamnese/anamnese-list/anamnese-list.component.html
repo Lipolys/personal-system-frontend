@@ -1,0 +1,74 @@
+<div class="div-list">
+  <section class="section-super-table">
+    <button mat-fab color="primary" (click)="incluirPaciente()"><mat-icon>add</mat-icon></button>
+    <div class="div-search">
+      <mat-form-field subscriptSizing="dynamic" class="form-search">
+        <mat-label>Buscar Nome</mat-label>
+        <input matInput placeholder="João da Silva" [(ngModel)]="searchName">
+        <button matSuffix mat-icon-button (click)="pesquisarPorNome()">
+          <mat-icon>search</mat-icon>
+        </button>
+        <button matSuffix mat-icon-button *ngIf="searchName" (click)="clearSearchName()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field subscriptSizing="dynamic" class="form-search">
+        <mat-label>Buscar CPF</mat-label>
+        <input matInput placeholder="123.456.789-00" [(ngModel)]="searchCpf">
+        <button matSuffix mat-icon-button (click)="pesquisarPorCpf()">
+          <mat-icon>search</mat-icon>
+        </button>
+        <button matSuffix mat-icon-button *ngIf="searchCpf" (click)="clearSearchCpf()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </section>
+  <section class="table-section">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="listarPacientes()">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+        <td mat-cell *matCellDef="let element">{{element.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="cpf">
+        <th mat-header-cell *matHeaderCellDef>CPF</th>
+        <td mat-cell *matCellDef="let element"> {{ element.cpf | cpfFormat }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="phoneNumber">
+        <th mat-header-cell *matHeaderCellDef>Telefone</th>
+        <td mat-cell *matCellDef="let element"> {{ element.phoneNumber | phoneFormat }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="enabled">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Situação</th>
+        <td mat-cell *matCellDef="let element"> {{ element.enabled ? 'Ativo' : 'Inativo' }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="clicarBotaoEditar(element.id)"><mat-icon>border_color</mat-icon></button>
+          <button mat-icon-button (click)="excluirPaciente(element.id)"><mat-icon>delete</mat-icon></button>
+          <button mat-icon-button (click)="outrasAcoes(element.id)"><mat-icon>more_horiz</mat-icon></button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSize]="pageSize"
+                   [length]="dataSource.paginator?.length"
+                   [pageIndex]="dataSource.paginator?.pageIndex"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   showFirstLastButtons
+                   (page)="onPageChange($event)">
+    </mat-paginator>
+  </section>
+</div>
