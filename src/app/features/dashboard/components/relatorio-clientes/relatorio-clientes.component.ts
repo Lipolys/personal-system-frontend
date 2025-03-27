@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ClientesAtivosInativos, ClientePorMensalidade, ClientePorIdade } from '../../../../models/Reports';
 
 @Component({
   selector: 'app-relatorio-clientes',
@@ -22,23 +23,37 @@ export class RelatorioClientesComponent implements OnInit {
   clientesPorMensalidade: any[] = [];
   clientesPorIdade: any[] = [];
 
+  colorScheme = 'forest';
+
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
-    this.dashboardService.getClientesAtivosInativos().subscribe(data => {
-      this.clientesAtivosInativos = data;
+    this.dashboardService.getClientesAtivosInativos().subscribe((data: ClientesAtivosInativos) => {
+      this.clientesAtivosInativos = [
+        { name: 'Ativos', value: data.activeClients },
+        { name: 'Inativos', value: data.inactiveClients }
+      ];
     });
 
-    this.dashboardService.getClientesPorSexo().subscribe(data => {
-      this.clientesPorSexo = data;
+    this.dashboardService.getClientesPorSexo().subscribe((data: Record<string, number>) => {
+      this.clientesPorSexo = Object.keys(data).map(key => ({
+        name: key,
+        value: data[key]
+      }));
     });
 
-    this.dashboardService.getClientesPorMensalidade().subscribe(data => {
-      this.clientesPorMensalidade = data;
+    this.dashboardService.getClientesPorMensalidade().subscribe((data: ClientePorMensalidade[]) => {
+      this.clientesPorMensalidade = data.map((item: ClientePorMensalidade) => ({
+        name: item.subscriptionType,
+        value: item.count
+      }));
     });
 
-    this.dashboardService.getClientesPorIdade().subscribe(data => {
-      this.clientesPorIdade = data;
+    this.dashboardService.getClientesPorIdade().subscribe((data: ClientePorIdade[]) => {
+      this.clientesPorIdade = data.map((item: ClientePorIdade) => ({
+        name: item.ageRange,
+        value: item.count
+      }));
     });
   }
 }

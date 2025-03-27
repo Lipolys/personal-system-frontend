@@ -11,38 +11,38 @@ export class DashboardService {
   constructor(private http: HttpClient) {}
 
   getClientesAtivosInativos(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/clientes-ativos-inativos`);
+    return this.http.get(`${this.apiUrl}/active-inactive-clients`);
   }
 
   getClientesPorSexo(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/clientes-por-sexo`);
+    return this.http.get(`${this.apiUrl}/clients-by-gender`);
   }
 
   getClientesPorMensalidade(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/clientes-por-mensalidade`);
+    return this.http.get(`${this.apiUrl}/clients-by-subscription`);
   }
 
   getClientesPorIdade(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/clientes-por-idade`);
+    return this.http.get(`${this.apiUrl}/clients-by-age`);
   }
 
-  getAniversariantes(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/aniversariantes`);
-  }
+  // getAniversariantes(): Observable<any> {
+  //   return this.http.get(`${this.apiUrl}/aniversariantes`);
+  // }
 
   getClientesComSemAnamnese(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/clientes-com-sem-anamnese`);
+    return this.http.get(`${this.apiUrl}/clients-with-without-anamnese`);
   }
 
   getCrescimentoClientesAnamnese(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/crescimento-clientes-anamnese`);
+    return this.http.get(`${this.apiUrl}/client-growth-anamnese`);
   }
 
   getCrescimentoClientesAtivos(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/crescimento-clientes-ativos`);
+    return this.http.get(`${this.apiUrl}/active-client-growth`);
   }
 
   getClientesPorCidade(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/clientes-por-cidade`);
+    return this.http.get(`${this.apiUrl}/clients-by-city`);
   }
 }

@@ -20,8 +20,8 @@ export class RelatorioAniversariantesComponent implements OnInit {
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
-    this.dashboardService.getAniversariantes().subscribe(data => {
-      this.aniversariantes = data;
-    });
+    // this.dashboardService.getAniversariantes().subscribe(data => {
+    //   this.aniversariantes = data;
+    // });
   }
 }
