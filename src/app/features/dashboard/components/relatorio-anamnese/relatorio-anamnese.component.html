@@ -1,0 +1,11 @@
+<div class="anamnese-container">
+<mat-card class="grafico">
+  <h2>Clientes com e sem Anamnese</h2>
+  <ngx-charts-pie-chart  [doughnut]="true" [results]="clientesComSemAnamnese" [legend]="true"></ngx-charts-pie-chart>
+</mat-card>
+
+<mat-card class="grafico">
+  <h2>Crescimento de Anamnese</h2>
+  <ngx-charts-line-chart [results]="crescimentoClientesAnamnese"></ngx-charts-line-chart>
+</mat-card>
+</div>

@@ -1,0 +1,28 @@
+<div class="relatorio-container">
+<mat-card class="grafico">
+  <h2>Clientes Ativos e Inativos</h2>
+  <ngx-charts-pie-chart  [doughnut]="true" [results]="clientesAtivosInativos" [legend]="true"></ngx-charts-pie-chart>
+</mat-card>
+
+<mat-divider></mat-divider>
+
+<mat-card class="grafico">
+  <h2>Clientes por Idade</h2>
+  <ngx-charts-bar-vertical [results]="clientesPorIdade"></ngx-charts-bar-vertical>
+</mat-card>
+
+<mat-divider></mat-divider>
+
+<mat-card class="grafico">
+  <h2>Clientes por Mensalidade</h2>
+  <ngx-charts-bar-vertical [results]="clientesPorMensalidade"></ngx-charts-bar-vertical>
+</mat-card>
+
+<mat-divider></mat-divider>
+
+<mat-card class="grafico">
+  <h2>Clientes por Sexo</h2>
+  <ngx-charts-pie-chart  [doughnut]="true" [results]="clientesPorSexo" [legend]="true"></ngx-charts-pie-chart>
+</mat-card>
+
+</div>

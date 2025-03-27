@@ -1,0 +1,19 @@
+.relatorio-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.grafico {
+  width: 45%;
+  min-width: 300px;
+  height: 480px; /* 🔥 Altura fixa para os gráficos */
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center; /* 🔥 Mantém o gráfico centralizado */
+  justify-content: center;
+}
