@@ -1,31 +1,31 @@
 <div class="div-list">
   <section class="section-super-table">
-    <button mat-fab color="primary" (click)="incluirPaciente()"><mat-icon>add</mat-icon></button>
+    <button mat-fab color="primary" (click)="incluirAnamnese()"><mat-icon>add</mat-icon></button>
     <div class="div-search">
       <mat-form-field subscriptSizing="dynamic" class="form-search">
-        <mat-label>Buscar Nome</mat-label>
-        <input matInput placeholder="João da Silva" [(ngModel)]="searchName">
-        <button matSuffix mat-icon-button (click)="pesquisarPorNome()">
+        <mat-label>Buscar ID Cliente</mat-label>
+        <input matInput placeholder="1" [(ngModel)]="searchIdCliente">
+        <button matSuffix mat-icon-button (click)="pesquisarPorIdCliente()">
           <mat-icon>search</mat-icon>
         </button>
-        <button matSuffix mat-icon-button *ngIf="searchName" (click)="clearSearchName()">
+        <button matSuffix mat-icon-button *ngIf="searchIdCliente" (click)="clearSearchIdCliente()">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
       <mat-form-field subscriptSizing="dynamic" class="form-search">
-        <mat-label>Buscar CPF</mat-label>
-        <input matInput placeholder="123.456.789-00" [(ngModel)]="searchCpf">
-        <button matSuffix mat-icon-button (click)="pesquisarPorCpf()">
+        <mat-label>Buscar Data Anamnese</mat-label>
+        <input matInput placeholder="30/04/2000" [(ngModel)]="searchDataAnamnese">
+        <button matSuffix mat-icon-button (click)="pesquisarPorDataAnamnese()">
           <mat-icon>search</mat-icon>
         </button>
-        <button matSuffix mat-icon-button *ngIf="searchCpf" (click)="clearSearchCpf()">
+        <button matSuffix mat-icon-button *ngIf="searchDataAnamnese" (click)="clearSearchDataAnamnese()">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
     </div>
   </section>
   <section class="table-section">
-    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="listarPacientes()">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="listarAnamneses()">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
         <td mat-cell *matCellDef="let element">{{element.name}}</td>
@@ -55,7 +55,7 @@
         <th mat-header-cell *matHeaderCellDef>Ações</th>
         <td mat-cell *matCellDef="let element">
           <button mat-icon-button (click)="clicarBotaoEditar(element.id)"><mat-icon>border_color</mat-icon></button>
-          <button mat-icon-button (click)="excluirPaciente(element.id)"><mat-icon>delete</mat-icon></button>
+          <button mat-icon-button (click)="excluirAnamnese(element.id)"><mat-icon>delete</mat-icon></button>
           <button mat-icon-button (click)="outrasAcoes(element.id)"><mat-icon>more_horiz</mat-icon></button>
         </td>
       </ng-container>

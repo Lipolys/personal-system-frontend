@@ -24,16 +24,19 @@ import {AnamneseDetailsComponent} from '../anamnese-details/anamnese-details.com
 import {NgIf} from '@angular/common';
 
 @Component({
-    selector: 'app-anamnese-list',
-    templateUrl: 'anamnese-list.component.html',
-    styleUrls: ['anamnese-list.component.scss'],
+  selector: 'app-anamnese-list',
+  templateUrl: 'anamnese-list.component.html',
+  styleUrls: ['anamnese-list.component.scss'],
   imports: [MatFormFieldModule, MatInputModule, FormsModule, MatIconButton, MatIcon, MatCell, MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderRow, MatHeaderRowDef, MatPaginator, MatRow, MatRowDef, MatSort, MatSortHeader, MatTable, MatHeaderCellDef, MatFabButton, PhoneFormatPipe, CpfFormatPipe, NgIf]
 })
-export class AnamneseListComponent implements AfterViewInit{
+export class AnamneseListComponent implements AfterViewInit {
   readonly _dialog = inject(MatDialog);
-  private _pacienteService = inject(AnamneseService);
-  searchName: any;
-  searchCpf: any;
+  private _anamneseService = inject(AnamneseService);
+
+  // Variáveis usadas para pesquisa
+  searchIdCliente: any;
+  searchDataAnamnese: any;
+
   pageNumber: number = 0;
   pageSize: number = 10;
   dataSource = new MatTableDataSource<any>([]);
@@ -45,20 +48,20 @@ export class AnamneseListComponent implements AfterViewInit{
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.listarPacientes();
+    this.listarAnamneses();
   }
 
-  listarPacientes() {
+  listarAnamneses() {
     const pageIndex = this.paginator.pageIndex;
     const pageSize = this.paginator.pageSize;
-    const sortData = this.sort.active ? {sortParam: this.sort.active, sortDirection: this.sort.direction} : null;
-    this._pacienteService.listarPacientes(pageIndex, pageSize, sortData).subscribe(response => {
-      this.dataSource.data = response.content; // Ajuste conforme a estrutura da resposta da API
-      this.paginator.length = response.totalElements; // Ajuste conforme a estrutura da resposta da API
+    const sortData = this.sort.active ? { sortParam: this.sort.active, sortDirection: this.sort.direction } : null;
+    this._anamneseService.listarAnamneses(pageIndex, pageSize, sortData).subscribe(response => {
+      this.dataSource.data = response.content;
+      this.paginator.length = response.totalElements;
     });
   }
 
-  incluirPaciente() {
+  incluirAnamnese() {
     const dialogRef = this._dialog.open(AnamneseFormComponent, {
       maxWidth: '100vw',
       maxHeight: '100vh',
@@ -68,77 +71,76 @@ export class AnamneseListComponent implements AfterViewInit{
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
-      this.listarPacientes();
+      this.listarAnamneses();
     });
   }
 
-  clicarBotaoEditar(pacienteId: number) {
-    this._pacienteService.obterPacientePorId(pacienteId).subscribe(paciente => {
+  clicarBotaoEditar(anamneseId: number) {
+    this._anamneseService.obterAnamnesePorId(anamneseId).subscribe(anamnese => {
       const dialogRef = this._dialog.open(AnamneseFormComponent, {
         maxWidth: '100vw',
         maxHeight: '100vh',
         height: '75%',
         width: '80%',
-        data: paciente
+        data: anamnese
       });
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
-        this.listarPacientes();
+        this.listarAnamneses();
       });
     });
   }
 
-  excluirPaciente(pacienteId: number) {
+  excluirAnamnese(anamneseId: number) {
     const dialogRef = this._dialog.open(ConfirmDialogComponent, {
       width: '250px',
-      data: {id: pacienteId}
+      data: {id: anamneseId}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this._pacienteService.excluirPaciente(pacienteId).subscribe(() => {
-          console.log('Paciente excluído com sucesso');
-          this.listarPacientes();
+        this._anamneseService.excluirAnamnese(anamneseId).subscribe(() => {
+          console.log('Anamnese excluído com sucesso');
+          this.listarAnamneses();
         });
       }
     });
   }
 
-  outrasAcoes(pacienteId: number) {
-    this._pacienteService.obterPacientePorId(pacienteId).subscribe(paciente => {
-      this._dialog.open(AnamneseDetailsComponent, {data: paciente});
+  outrasAcoes(clienteId: number) {
+    this._anamneseService.pesquisarPorIdCliente(clienteId).subscribe(cliente => {
+      this._dialog.open(AnamneseDetailsComponent, { data: cliente });
     });
   }
 
-  pesquisarPorNome() {
-    this._pacienteService.pesquisarPorNome(this.searchName).subscribe(response => {
+  pesquisarPorIdCliente() {
+    this._anamneseService.pesquisarPorIdCliente(this.searchIdCliente).subscribe(response => {
       this.dataSource.data = response.content;
       this.paginator.length = response.totalElements;
     });
   }
 
-  pesquisarPorCpf() {
-    this._pacienteService.pesquisarPorCpf(this.searchCpf).subscribe(response => {
+  pesquisarPorDataAnamnese() {
+    this._anamneseService.pesquisarPorData(this.searchDataAnamnese).subscribe(response => {
       this.dataSource.data = response.content;
       this.paginator.length = response.totalElements;
     });
   }
 
-  clearSearchName() {
-    this.searchName = '';
-    this.pesquisarPorNome();
+  clearSearchIdCliente() {
+    this.searchIdCliente = '';
+    this.pesquisarPorIdCliente();
   }
 
-  clearSearchCpf() {
-    this.searchCpf = '';
-    this.pesquisarPorCpf();
+  clearSearchDataAnamnese() {
+    this.searchDataAnamnese = '';
+    this.pesquisarPorDataAnamnese();
   }
-
 
   onPageChange(event: any): void {
     this.pageSize = event.pageSize;
     this.pageNumber = event.pageIndex;
-    this.listarPacientes();
+    this.listarAnamneses();
   }
 }

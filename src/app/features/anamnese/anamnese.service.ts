@@ -6,15 +6,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AnamneseService {
-  //private apiUrl = 'https://13.61.16.36:8080/api/v1/patient';
   private apiUrl = 'http://localhost:8080/api/v1/anamnese';
-
   private _http = inject(HttpClient);
 
   constructor() {}
 
-  listarPacientes(pageNumber: number, pageSize: number, sortData: any): Observable<any> {
-    let params;
+  listarAnamneses(pageNumber: number, pageSize: number, sortData?: any): Observable<any> {
+    let params: HttpParams;
+
     if (sortData) {
       params = new HttpParams()
         .set('page', pageNumber)
@@ -26,30 +25,32 @@ export class AnamneseService {
         .set('size', pageSize);
     }
 
-    return this._http.get<any>(`${this.apiUrl}`, { params: params });
+    return this._http.get<any>(this.apiUrl, { params });
   }
 
-  incluirPaciente(paciente: any): Observable<any> {
-    return this._http.post<any>(this.apiUrl, paciente);
+  incluirAnamnese(anamnese: any): Observable<any> {
+    return this._http.post<any>(this.apiUrl, anamnese);
   }
 
-  excluirPaciente(id: number): Observable<any> {
+  excluirAnamnese(id: number): Observable<any> {
     return this._http.delete<any>(`${this.apiUrl}/${id}`);
   }
 
-  editarPaciente(id: number, paciente: any): Observable<any> {
-    return this._http.put<any>(`${this.apiUrl}/${id}`, paciente);
+  editarAnamnese(id: number, anamnese: any): Observable<any> {
+    return this._http.put<any>(`${this.apiUrl}/${id}`, anamnese);
   }
 
-  obterPacientePorId(id: number): Observable<any> {
+  obterAnamnesePorId(id: number): Observable<any> {
     return this._http.get<any>(`${this.apiUrl}/${id}`);
   }
 
-  pesquisarPorNome(nome: string): Observable<any> {
-    return this._http.get<any>(`${this.apiUrl}/search?name=${nome}`);
+  pesquisarPorData(data: string): Observable<any> {
+    // Ajuste o nome do parâmetro conforme seu backend
+    return this._http.get<any>(`${this.apiUrl}/search?data=${data}`);
   }
 
-  pesquisarPorCpf(cpf: string): Observable<any> {
-    return this._http.get<any>(`${this.apiUrl}/search?cpf=${cpf}`);
+  pesquisarPorIdCliente(idCliente: number): Observable<any> {
+    // Ajuste o nome do parâmetro conforme seu backend
+    return this._http.get<any>(`${this.apiUrl}/search?idCliente=${idCliente}`);
   }
 }

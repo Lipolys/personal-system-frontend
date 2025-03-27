@@ -69,7 +69,7 @@ export class AnamneseFormComponent implements OnInit{
 
   private _viaCepService = inject(ViaCepService);
   private _formBuilder = inject(FormBuilder);
-  private _pacienteService = inject(AnamneseService);
+  private _anamneseService = inject(AnamneseService);
   private _dialogRef = inject(MatDialogRef<AnamneseFormComponent>);
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
@@ -155,30 +155,30 @@ export class AnamneseFormComponent implements OnInit{
     const address = {
       ...this.secondFormGroup.value
     }
-    const paciente = {
+    const anamnese = {
       ...this.firstFormGroup.value,
       address,
       ...this.thirdFormGroup.value
     };
 
     if (this.data?.id) {
-      this._pacienteService.editarPaciente(this.data.id, paciente).subscribe({
+      this._anamneseService.editarAnamnese(this.data.id, anamnese).subscribe({
         next: () => {
-          console.log('Paciente atualizado com sucesso');
+          console.log('Anamnese atualizado com sucesso');
           this._dialogRef.close(true);
         },
         error: (err) => {
-          console.error('Erro ao atualizar paciente', err);
+          console.error('Erro ao atualizar anamnese', err);
         }
       });
     } else {
-      this._pacienteService.incluirPaciente(paciente).subscribe({
+      this._anamneseService.incluirAnamnese(anamnese).subscribe({
         next: () => {
-          console.log('Paciente criado com sucesso');
+          console.log('Anamnese criado com sucesso');
           this._dialogRef.close(true);
         },
         error: (err) => {
-          console.error('Erro ao criar paciente', err);
+          console.error('Erro ao criar anamnese', err);
         }
       });
     }
