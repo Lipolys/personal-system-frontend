@@ -12,3 +12,9 @@ export interface ClientePorIdade {
   ageRange: string;
   count: number;
 }
+
+
+export interface ClientePorSexo {
+  maleClients: number;
+  femaleClients: number;
+}

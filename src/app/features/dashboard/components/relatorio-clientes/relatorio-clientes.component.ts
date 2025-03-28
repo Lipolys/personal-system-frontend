@@ -4,7 +4,12 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { ClientesAtivosInativos, ClientePorMensalidade, ClientePorIdade } from '../../../../models/Reports';
+import {
+  ClientesAtivosInativos,
+  ClientePorMensalidade,
+  ClientePorIdade,
+  ClientePorSexo
+} from '../../../../models/Reports';
 
 @Component({
   selector: 'app-relatorio-clientes',
@@ -35,11 +40,11 @@ export class RelatorioClientesComponent implements OnInit {
       ];
     });
 
-    this.dashboardService.getClientesPorSexo().subscribe((data: Record<string, number>) => {
-      this.clientesPorSexo = Object.keys(data).map(key => ({
-        name: key,
-        value: data[key]
-      }));
+    this.dashboardService.getClientesPorSexo().subscribe((data: ClientePorSexo) => {
+      this.clientesPorSexo = [
+        { name: 'Masculino', value: data.maleClients},
+        { name: 'Feminino', value: data.femaleClients }
+      ];
     });
 
     this.dashboardService.getClientesPorMensalidade().subscribe((data: ClientePorMensalidade[]) => {
