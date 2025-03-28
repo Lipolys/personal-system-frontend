@@ -1,68 +1,37 @@
-<h2 mat-dialog-title>Cadastrar Paciente</h2>
+<h2 mat-dialog-title>Registrar Anamnese</h2>
 <mat-dialog-content>
+  <div class="form-header">
+    <strong>Anamnese:</strong> {{ patient?.name }}
+  </div>
+
   <mat-stepper #stepper>
-    <mat-step [stepControl]="firstFormGroup" errorMessage="Dados da identidade são obrigatórios.">
+    <!-- Etapa 1: Queixa e Histórico -->
+    <mat-step [stepControl]="firstFormGroup" errorMessage="Preencha as informações obrigatórias.">
       <section class="form-container">
         <form [formGroup]="firstFormGroup" class="form-group">
-          <ng-template matStepLabel>Identidade do Paciente</ng-template>
-          <!-- Aqui é o primeiro passo do stepper, onde o usuário irá preencher os dados do paciente.
-          Está separado de três em três no design -->
+          <ng-template matStepLabel>Queixa Principal e Histórico</ng-template>
+
           <div class="form-row">
-            <mat-form-field>
-              <mat-label>Nome Completo</mat-label>
-              <input matInput formControlName="name" placeholder="João da Silva" required>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>CPF</mat-label>
-              <input matInput formControlName="cpf" placeholder="123.456.789-12" required>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Data de Nascimento</mat-label>
-              <input matInput formControlName="birthDate" [matDatepicker]="picker">
+            <mat-form-field appearance="fill">
+              <mat-label>Data da Anamnese</mat-label>
+              <input matInput formControlName="anamnesisDate" [matDatepicker]="picker">
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker disabled="false"></mat-datepicker>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Queixa Principal</mat-label>
+              <textarea matInput formControlName="mainComplaints" rows="3" required></textarea>
             </mat-form-field>
           </div>
 
           <div class="form-row">
-            <mat-form-field>
-              <mat-label>Sexo</mat-label>
-              <mat-select formControlName="gender" required>
-                <mat-option value="Masculino">Masculino</mat-option>
-                <mat-option value="Feminino">Feminino</mat-option>
-                <mat-option value="Outros">Outros</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Estado Civil</mat-label>
-              <mat-select formControlName="maritalStatus" required>
-                <mat-option value="Solteiro">Solteiro</mat-option>
-                <mat-option value="Casado">Casado</mat-option>
-                <mat-option value="Separado">Separado</mat-option>
-                <mat-option value="Divorciado">Divorciado</mat-option>
-                <mat-option value="Viúvo">Viúvo</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Email</mat-label>
-              <input matInput formControlName="email" placeholder="aluno@gmail.com" required>
+            <mat-form-field appearance="fill">
+              <mat-label>Histórico Médico</mat-label>
+              <textarea matInput formControlName="medicalHistory" rows="3"></textarea>
             </mat-form-field>
           </div>
 
-          <div class="form-row">
-            <mat-form-field>
-              <mat-label>Profissão</mat-label>
-              <input formControlName="profession" matInput placeholder="Professor" required>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Telefone</mat-label>
-              <input matInput formControlName="phoneNumber" placeholder="(61) 99999-9999" required>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Contato de Emergência</mat-label>
-              <input matInput formControlName="emergencyNumber" placeholder="(61) 99999-9999" required>
-            </mat-form-field>
-          </div>
           <div class="form-buttons">
             <button mat-button matDialogClose>Cancelar</button>
             <button mat-button matStepperNext>Próximo</button>
@@ -71,51 +40,29 @@
       </section>
     </mat-step>
 
-
-    <mat-step [stepControl]="secondFormGroup" errorMessage="Dados do endereço são obrigatórios.">
+    <!-- Etapa 2: Dados Corporais -->
+    <mat-step [stepControl]="secondFormGroup" errorMessage="Preencha os campos obrigatórios.">
       <section class="form-container">
         <form [formGroup]="secondFormGroup" class="form-group">
-          <ng-template matStepLabel>Endereço do Paciente</ng-template>
-          <!-- Aqui é o segundo passo do stepper, onde o usuário irá preencher os dados de endereço.
-          Está separado de três em três no design -->
-          <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+          <ng-template matStepLabel>Dados Corporais</ng-template>
 
           <div class="form-row">
-            <mat-form-field>
-              <mat-label>CEP</mat-label>
-              <input matInput formControlName="cep" placeholder="00100101" required>
+            <mat-form-field appearance="fill">
+              <mat-label>Peso (kg)</mat-label>
+              <input matInput type="number" formControlName="weight" required>
             </mat-form-field>
-            <mat-form-field>
-              <mat-label>Rua</mat-label>
-              <input matInput formControlName="street" placeholder="Rua VP-03" required>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Altura (cm)</mat-label>
+              <input matInput type="number" formControlName="height" required>
             </mat-form-field>
-            <mat-form-field>
-              <mat-label>Bairro</mat-label>
-              <input matInput formControlName="neighborhood" placeholder="Bairro das Rosas" required>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Observações</mat-label>
+              <textarea matInput formControlName="observations" rows="2"></textarea>
             </mat-form-field>
           </div>
 
-          <div class="form-row">
-            <mat-form-field>
-              <mat-label>Cidade</mat-label>
-              <input matInput formControlName="city" placeholder="Anápolis" required>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Estado</mat-label>
-              <input matInput formControlName="state" placeholder="Goiás" required>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Número</mat-label>
-              <input matInput formControlName="number" placeholder="404">
-            </mat-form-field>
-          </div>
-
-          <div class="form-row">
-            <mat-form-field>
-              <mat-label>Complemento</mat-label>
-              <textarea matInput formControlName="complement" placeholder="Quadra 02, lote 01, apartamento 401"></textarea>
-            </mat-form-field>
-          </div>
           <div class="form-buttons">
             <button mat-button matStepperPrevious>Voltar</button>
             <button mat-button matStepperNext>Próximo</button>
@@ -123,37 +70,52 @@
         </form>
       </section>
     </mat-step>
-    <mat-step [stepControl]="thirdFormGroup" errorMessage="Dados complementares são obrigatórios">
+
+    <!-- Etapa 3: Circunferência e Medidas -->
+    <mat-step [stepControl]="thirdFormGroup" errorMessage="Preencha os campos obrigatórios.">
       <section class="form-container">
         <form [formGroup]="thirdFormGroup" class="form-group">
-          <ng-template matStepLabel>Dados Complementares</ng-template>
-          <!-- Aqui é o terceiro passo do stepper, onde o usuário irá preencher os dados complementares.
-          são poucas informações -->
+          <ng-template matStepLabel>Medidas e Composição Corporal</ng-template>
 
           <div class="form-row">
-            <mat-slide-toggle formControlName="enabled">Ativo?</mat-slide-toggle>
-          </div>
-          <div class="form-row">
-            <mat-form-field>
-              <mat-label>Preço da Hora</mat-label>
-              <input matInput formControlName="valueForHour" placeholder="100"  mask="000.00" prefix="R$" required>
+            <mat-form-field appearance="fill">
+              <mat-label>Circunferência da Cintura (cm)</mat-label>
+              <input matInput type="number" formControlName="waistCircumference">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Circunferência do Quadril (cm)</mat-label>
+              <input matInput type="number" formControlName="hipCircumference">
             </mat-form-field>
           </div>
 
           <div class="form-row">
-            <mat-slide-toggle formControlName="hasHealthPlan">Possui Plano de Saúde?</mat-slide-toggle>
+            <mat-form-field appearance="fill">
+              <mat-label>% de Gordura Corporal</mat-label>
+              <input matInput type="number" formControlName="bodyFatPercentage">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Massa Muscular (kg)</mat-label>
+              <input matInput type="number" formControlName="muscleMass">
+            </mat-form-field>
           </div>
 
-          <div class="form-row" *ngIf="thirdFormGroup.get('hasHealthPlan')?.value">
-            <mat-form-field>
-              <mat-label>Plano de Saúde</mat-label>
-              <input matInput formControlName="healthPlan" placeholder="Nome do Plano">
+          <div class="form-row">
+            <mat-form-field appearance="fill">
+              <mat-label>IMC</mat-label>
+              <input matInput type="number" formControlName="bodyMassIndex">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Relação Cintura/Quadril</mat-label>
+              <input matInput type="number" formControlName="waistHipRatio">
             </mat-form-field>
           </div>
 
           <div class="form-buttons">
             <button mat-button matStepperPrevious>Voltar</button>
-            <button mat-button (click)="incluirPaciente()">Finalizar</button>
+            <button mat-button (click)="salvarAnamnese()">Finalizar</button>
           </div>
         </form>
       </section>

@@ -40,7 +40,7 @@ export class AnamneseListComponent implements AfterViewInit {
   pageNumber: number = 0;
   pageSize: number = 10;
   dataSource = new MatTableDataSource<any>([]);
-  displayedColumns: string[] = ['name', 'cpf', 'email', 'phoneNumber', 'enabled', 'actions'];
+  displayedColumns: string[] = ['id', 'patientName', 'anamnesisDate', 'bodyMassIndex', 'enabled', 'actions'];
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;

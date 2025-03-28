@@ -1,25 +1,45 @@
-<h1>Detalhes do Paciente</h1>
+<h1>Detalhes da Anamnese</h1>
 <div class="details-container">
-  <p><strong>Nome:</strong> {{ data.name }}</p>
+  <p><strong>ID do Paciente:</strong> {{ data?.patient?.id }}</p>
   <div class="line"></div>
-  <p><strong>CPF:</strong> {{ data.cpf }}</p>
+
+  <p><strong>Nome do Paciente:</strong> {{ data?.patient?.name }}</p>
   <div class="line"></div>
-  <p><strong>Email:</strong> {{ data.email }}</p>
+
+  <p><strong>Data da Anamnese:</strong> {{ data?.anamnesisDate | date: 'dd/MM/yyyy' }}</p>
   <div class="line"></div>
-  <p><strong>Data de Nascimento:</strong> {{ data.birthDate | date: 'dd/MM/yyyy' }}</p>
+
+  <p><strong>Queixa Principal:</strong> {{ data?.mainComplaints }}</p>
   <div class="line"></div>
-  <p><strong>Sexo:</strong> {{ data.gender }}</p>
+
+  <p><strong>Histórico Médico:</strong> {{ data?.medicalHistory || 'N/A' }}</p>
   <div class="line"></div>
-  <p><strong>Estado Civil:</strong> {{ data.maritalStatus }}</p>
+
+  <p><strong>Observações:</strong> {{ data?.observations || 'N/A' }}</p>
   <div class="line"></div>
-  <p><strong>Profissão:</strong> {{ data.profession }}</p>
+
+  <p><strong>Peso:</strong> {{ data?.weight }} kg</p>
   <div class="line"></div>
-  <p><strong>Telefone:</strong> {{ data.phoneNumber }}</p>
+
+  <p><strong>Altura:</strong> {{ data?.height }} cm</p>
   <div class="line"></div>
-  <p><strong>Endereço:</strong> {{ data.address.street }}, {{ data.address.number }}, {{ data.address.neighborhood }}, {{ data.address.city }} - {{ data.address.state }}</p>
+
+  <p><strong>Circunferência da Cintura:</strong> {{ data?.waistCircumference }} cm</p>
   <div class="line"></div>
-  <p><strong>Plano de Saúde:</strong> {{ data.healthPlan || 'N/A' }}</p>
+
+  <p><strong>Circunferência do Quadril:</strong> {{ data?.hipCircumference }} cm</p>
   <div class="line"></div>
-  <p><strong>Ativo:</strong> {{ data.enabled ? 'Sim' : 'Não' }}</p>
+
+  <p><strong>% de Gordura Corporal:</strong> {{ data?.bodyFatPercentage }}%</p>
+  <div class="line"></div>
+
+  <p><strong>Massa Muscular:</strong> {{ data?.muscleMass }} kg</p>
+  <div class="line"></div>
+
+  <p><strong>IMC:</strong> {{ data?.bodyMassIndex }}</p>
+  <div class="line"></div>
+
+  <p><strong>Relação Cintura/Quadril:</strong> {{ data?.waistHipRatio }}</p>
 </div>
+
 <button mat-button mat-dialog-close>Fechar</button>

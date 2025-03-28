@@ -4,7 +4,7 @@ import {MatButton} from '@angular/material/button';
 import {DatePipe} from '@angular/common';
 
 @Component({
-  selector: 'app-paciente-details',
+  selector: 'app-anamnese-details',
   imports: [
     MatButton,
     DatePipe,
