@@ -35,6 +35,7 @@ import {
 } from '@angular/material/datepicker';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {MAT_DATE_LOCALE, provideNativeDateAdapter} from '@angular/material/core';
+import {AnamneseValidateComponent} from '../anamnese-validate/anamnese-validate.component';
 
 @Component({
   selector: 'app-anamnese-list',
@@ -62,7 +63,7 @@ import {MAT_DATE_LOCALE, provideNativeDateAdapter} from '@angular/material/core'
     MatTable,
     MatHeaderCellDef,
     MatDatepickerModule,
-    MatFabButton, NgIf, DecimalPipe, DatePipe, MatDatepickerInput, MatDatepickerToggle, MatDatepicker, ReactiveFormsModule, MatDateRangeInput, MatDateRangePicker,
+    MatFabButton, NgIf, DecimalPipe, DatePipe, MatDatepickerToggle, ReactiveFormsModule, MatDateRangeInput, MatDateRangePicker,
   ],
   providers: [
     DatePipe,
@@ -244,6 +245,35 @@ export class AnamneseListComponent implements AfterViewInit {
     this.searchStartDate = '';
     this.searchEndDate = '';
     this.listarAnamneses();
+  }
+
+  abrirDialogoValidacao() {
+    this._dialog.open(AnamneseValidateComponent, {
+      width: '300px', // Ajuste o tamanho conforme necessário
+      height: '300px',
+      panelClass: 'custom-dialog-container'
+    });
+  }
+
+  selectedFile: File | null = null;
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      console.log('Arquivo selecionado:', this.selectedFile); // Log para verificar o arquivo
+    }
+  }
+
+  validarAnamnese(): void {
+    if (!this.selectedFile) return;
+
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+
+    this._anamneseService.validarAnamnese(formData).subscribe((response) => {
+      alert(response.toString());
+    });
   }
 
   onPageChange(event: PageEvent) {

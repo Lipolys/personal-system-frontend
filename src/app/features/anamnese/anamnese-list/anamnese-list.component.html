@@ -1,9 +1,14 @@
 <div class="div-list">
   <section class="section-super-table">
-    <!-- Botão para criar nova Anamnese -->
-    <button mat-fab color="primary" (click)="incluirAnamnese()" [disabled]="pacientesCount === 0">
-      <mat-icon>add</mat-icon>
-    </button>
+    <div>
+      <button mat-fab color="primary" (click)="incluirAnamnese()" [disabled]="pacientesCount === 0">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button style="margin-left: 10px" mat-fab color="secondary" (click)="abrirDialogoValidacao()">
+        <mat-icon>key</mat-icon>
+      </button>
+    </div>
+
 
     <div class="div-search">
       <mat-form-field subscriptSizing="dynamic" class="form-search">

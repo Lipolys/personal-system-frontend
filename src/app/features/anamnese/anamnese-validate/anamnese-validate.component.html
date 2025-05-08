@@ -1,0 +1,9 @@
+<div class="dialog-content">
+  <button *ngIf="showFileButton" type="button" mat-raised-button (click)="fileInput.click()">Escolher Arquivo</button>
+  <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
+
+  <div *ngIf="responseMessage" class="response-container">
+    <mat-icon style="height: 50px; width: 50px" class="response-icon" [ngClass]="responseIcon">{{ responseIcon }}</mat-icon>
+    <p class="response-message">{{ responseMessage }}</p>
+  </div>
+</div>

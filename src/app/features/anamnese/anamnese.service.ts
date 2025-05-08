@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {saveAs} from 'file-saver';
 
 @Injectable({
   providedIn: 'root'
@@ -56,9 +57,23 @@ export class AnamneseService {
     return this._http.get<any>(`${this.apiUrl}/search`, { params });
   }
 
-  pesquisarAnamnesesPorNome(nome: string): Observable<any> {
-    const params = new HttpParams().set('patientName', nome);
-    return this._http.get<any>(`${this.apiUrl}/search`, { params });
+  exportarAnamnese(id: number) {
+    this._http.get(`${this.apiUrl}/${id}/export`, { responseType: 'blob', observe: 'response' }).subscribe({
+      next: (response) => {
+        const blob = response.body!;
+        const contentDisposition = response.headers.get('content-disposition');
+        const fileNameMatch = contentDisposition?.match(/filename="?(.+)"?/);
+        const fileName = fileNameMatch?.[1] || `anamnese-${id}.txt`;
+
+        saveAs(blob, fileName);
+      },
+      error: (err) => {
+        console.error('Erro ao exportar o arquivo:', err);
+      }
+    });
   }
 
+  validarAnamnese(file: FormData): Observable<any> {
+    return this._http.post(`${this.apiUrl}/validate`, file, {responseType: 'text'});
+  }
 }

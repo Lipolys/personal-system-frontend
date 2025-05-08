@@ -1,0 +1,41 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Evita que o conteúdo ultrapasse os limites */
+}
+
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  width: 100%; /* Garante que o conteúdo ocupe o espaço disponível */
+  height: 100%; /* Garante que o conteúdo ocupe o espaço disponível */
+}
+
+.response-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.response-icon {
+  font-size: 48px;
+  color: #4caf50; /* Cor padrão para sucesso */
+}
+
+.response-icon.error {
+  color: #f44336; /* Cor para erro */
+}
+
+.response-message {
+  font-size: 16px;
+  color: #333;
+}
