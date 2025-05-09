@@ -37,7 +37,7 @@ export class AnamneseValidateComponent {
       this.anamneseService.validarAnamnese(formData).subscribe((response: string) => {
         this.responseMessage = response.toString();
         this.showFileButton = false;
-        this.responseIcon = response === 'Documento assinado válido' ? 'check_circle' : 'error';
+        this.responseIcon = response.includes('Documento assinado válido') ? 'check_circle' : 'error';
       });
     }
   }
